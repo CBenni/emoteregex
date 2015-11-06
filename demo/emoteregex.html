@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Emote regex</title>
+	<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="../emoteregex.js"></script>
+	
+	<script>
+		$(function(){
+			$("#test").click(function test()
+			{
+				var flags = ($("#globalflag").is(":checked")?"g":"")+($("#caseflag").is(":checked")?"i":"");
+				var regex = new emoteRegex($("#regex").val(),flags);
+				var data = $("#data").val()
+				$("#parseresult").text(JSON.stringify(emoteRegex.parseMessage(data)));
+				$("#testresult").text(regex.test(data));
+				$("#execresult").text(JSON.stringify(regex.exec(data)));
+				$("#tostringresult").text(regex.toString());
+			});
+		});
+	</script>
+	
+	<style>
+	textarea
+	{
+		width: 98%;
+		height: 200px;
+	}
+	</style>
+</head>
+
+<body>
+	<textarea id="regex" placeholder="regex">(\{emote}.*){4}</textarea><br>
+	<textarea id="data" placeholder="regex">@color=#B22222;display-name=TheDragon;emotes=25:0-4,6-10,18-22/1902:12-16;subscriber=0;turbo=0;user-type=;user_type= :thedragon!thedragon@thedragon.tmi.twitch.tv PRIVMSG #cbanni :Kappa Kappa Keepo Kappa</textarea><br>
+	<input type="checkbox" id="caseflag"/> case insensitive &nbsp;&nbsp;&nbsp;&nbsp; <input type="checkbox" id="globalflag"/> global <br>
+	<button id="test">Test</button>
+	<table>
+		<tr><td style="width: 100px;">Parse result</td><td id="parseresult">-</td></tr>
+		<tr><td style="width: 100px;">Test result</td><td id="testresult">-</td></tr>
+		<tr><td>Exec result</td><td id="execresult">-</td></tr>
+		<tr><td>ToString</td><td id="tostringresult">-</td></tr>
+	</table>
+</body>
+
+</html>
